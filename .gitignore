@@ -3,3 +3,10 @@ build/
 *.db*
 debug.log
 .vscode/
+bin/
+obj/
+*.exe
+*.lib
+*.pdb
+*.obj
+

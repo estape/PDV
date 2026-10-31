@@ -1,139 +1,190 @@
-/* COMPONENTES E MODAIS DO PDV */
+/* ==========================================================================
+   COMPONENTES, MODAIS E CONTROLES MODERNOS DO PDV (LIGHT THEME)
+   ========================================================================== */
 
+/* OVERLAY DE MODAIS (BACKDROP BLUR) */
 .modal-overlay {
   position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: rgba(0, 0, 0, 0.75);
-  backdrop-filter: blur(4px);
+  inset: 0;
+  background-color: rgba(15, 23, 42, 0.45);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
   display: flex;
   align-items: center;
   justify-content: center;
   z-index: 1000;
-  animation: fadeIn 0.15s ease-out;
+  animation: modalFadeIn 0.15s cubic-bezier(0.16, 1, 0.3, 1);
+  padding: 16px;
+  overscroll-behavior: contain;
 }
 
-@keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
+@keyframes modalFadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
 }
 
+/* CARD CONTAINER DO MODAL */
 .modal-card {
-  background-color: #1e293b;
-  border: 2px solid var(--accent-blue);
-  border-radius: 10px;
-  width: 90%;
-  max-width: 620px;
-  max-height: 90vh;
+  background-color: #ffffff;
+  border: 1px solid #cbd5e1;
+  border-radius: 12px;
+  width: 100%;
+  max-width: 580px;
+  max-height: 88vh;
   display: flex;
   flex-direction: column;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
   overflow: hidden;
 }
 
 .modal-small {
-  max-width: 440px;
+  max-width: 420px;
 }
 
 .modal-printer {
   max-width: 520px;
 }
 
+.modal-tef {
+  max-width: 400px;
+}
+
+/* HEADER DO MODAL */
 .modal-header {
-  background-color: #0f172a;
-  padding: 14px 20px;
+  background-color: #f8fafc;
+  padding: 14px 18px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border-bottom: 1px solid var(--border-color);
+  border-bottom: 1px solid #e2e8f0;
 }
 
 .modal-header h2 {
-  font-size: 1.1rem;
-  font-weight: 800;
-  color: #fff;
-  letter-spacing: 0.5px;
+  font-size: 0.92rem;
+  font-weight: 700;
+  color: #0f172a;
+  letter-spacing: 0.3px;
 }
 
 .modal-close {
-  background: none;
+  background: transparent;
   border: none;
-  color: #94a3b8;
-  font-size: 1.6rem;
+  color: #64748b;
+  font-size: 1.4rem;
   cursor: pointer;
   line-height: 1;
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+  transition: all 0.12s;
 }
 
 .modal-close:hover {
-  color: #fff;
+  color: #0f172a;
+  background-color: #e2e8f0;
 }
 
+/* CORPO DO MODAL */
 .modal-body {
-  padding: 20px;
+  padding: 18px 20px;
   overflow-y: auto;
+  overscroll-behavior: contain;
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 14px;
+  background-color: #ffffff;
 }
 
+.modal-body::-webkit-scrollbar {
+  width: 6px;
+}
+.modal-body::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 3px;
+}
+
+/* RODAPÉ DO MODAL */
 .modal-footer {
-  background-color: #0f172a;
-  padding: 14px 20px;
+  background-color: #f8fafc;
+  padding: 12px 18px;
   display: flex;
   justify-content: flex-end;
-  gap: 12px;
-  border-top: 1px solid var(--border-color);
+  gap: 10px;
+  border-top: 1px solid #e2e8f0;
 }
 
-/* FORMULÁRIOS */
+/* FORMULÁRIOS E INPUTS */
 .form-group {
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: 5px;
 }
 
 .form-group label {
-  font-size: 0.8rem;
+  font-size: 0.72rem;
   font-weight: 700;
-  color: #cbd5e1;
+  color: #475569;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
 }
 
 .form-group input,
 .form-group select {
-  background-color: #0f172a;
-  border: 1px solid var(--border-color);
-  color: #fff;
+  background-color: #ffffff;
+  border: 1px solid #cbd5e1;
+  color: #0f172a;
   font-family: var(--font-mono);
-  font-size: 1.1rem;
+  font-size: 1.05rem;
+  font-weight: 600;
   padding: 8px 12px;
   border-radius: 6px;
   outline: none;
+  transition: border-color 0.15s, box-shadow 0.15s;
+  font-variant-numeric: tabular-nums;
 }
 
 .form-group input:focus,
 .form-group select:focus {
-  border-color: var(--accent-blue);
+  border-color: #2563eb;
+  box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.15);
 }
 
-/* FINALIZADORAS DE PAGAMENTO */
+.form-group input::placeholder {
+  color: #94a3b8;
+  font-size: 0.9rem;
+}
+
+/* ==========================================================================
+   MODAL DE FINALIZADORAS / PAGAMENTO
+   ========================================================================== */
 .payment-amount-due {
-  background-color: #0f172a;
-  padding: 12px;
-  border-radius: 6px;
-  text-align: center;
-  font-size: 1.1rem;
-  font-weight: 700;
-  border: 1px solid var(--border-color);
+  background-color: #eff6ff;
+  border: 1px solid #bfdbfe;
+  padding: 12px 16px;
+  border-radius: 8px;
+  font-size: 0.85rem;
+  color: #1e40af;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-weight: 600;
 }
 
 .payment-amount-due span {
   font-family: var(--font-mono);
-  color: var(--accent-green);
-  font-size: 1.5rem;
-  font-weight: 900;
-  margin-left: 8px;
+  font-size: 1.35rem;
+  font-weight: 800;
+  color: #1e3a8a;
+  font-variant-numeric: tabular-nums;
 }
 
 .payment-methods-grid {
@@ -143,92 +194,141 @@
 }
 
 .pay-method-btn {
-  background-color: #0f172a;
-  border: 1px solid var(--border-color);
-  color: #fff;
-  padding: 12px;
+  background-color: #f8fafc;
+  border: 1px solid #e2e8f0;
+  padding: 12px 14px;
   border-radius: 8px;
-  font-weight: 700;
-  font-size: 0.95rem;
+  cursor: pointer;
   display: flex;
   align-items: center;
   gap: 10px;
-  cursor: pointer;
-  transition: all 0.15s;
+  transition: all 0.12s;
+  color: #334155;
 }
 
-.pay-method-btn.active,
 .pay-method-btn:hover {
-  background-color: #1e3a8a;
-  border-color: #3b82f6;
+  background-color: #f1f5f9;
+  border-color: #cbd5e1;
+  color: #0f172a;
+}
+
+.pay-method-btn.active {
+  background-color: #eff6ff;
+  border-color: #2563eb;
+  color: #1d4ed8;
+  box-shadow: 0 0 0 1px #2563eb;
 }
 
 .pay-icon {
-  font-size: 1.4rem;
-}
-
-.troco-box {
-  background-color: #064e3b;
-  border: 1px solid #10b981;
-  color: #a7f3d0;
-  padding: 10px 14px;
-  border-radius: 6px;
-  font-size: 1rem;
-  margin-top: 8px;
-  text-align: center;
-}
-
-.troco-box b {
-  font-family: var(--font-mono);
-  font-size: 1.3rem;
-  color: #fff;
-}
-
-/* PINPAD TEF */
-.pinpad-device {
-  background-color: #0f172a;
-  border: 3px solid #334155;
-  border-radius: 12px;
-  padding: 16px;
-  display: flex;
-  flex-direction: column;
-  gap: 14px;
-  max-width: 340px;
-  margin: 0 auto;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.7);
-}
-
-.pinpad-screen {
-  background-color: #022c22;
-  border: 2px solid #065f46;
-  border-radius: 6px;
-  padding: 12px 10px;
-  text-align: center;
-  font-family: var(--font-mono);
-  color: #34d399;
-}
-
-.pinpad-brand {
-  font-size: 0.65rem;
-  color: #059669;
-  letter-spacing: 1px;
-  margin-bottom: 6px;
-}
-
-.pinpad-msg {
-  font-size: 0.9rem;
-  font-weight: 800;
-  min-height: 2.4rem;
+  font-size: 1.25rem;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
+.pay-name {
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+}
+
+.payment-form {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.payment-form label {
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: #475569;
+  text-transform: uppercase;
+}
+
+.payment-form input {
+  background-color: #ffffff;
+  border: 1px solid #cbd5e1;
+  color: #0f172a;
+  font-family: var(--font-mono);
+  font-size: 1.35rem;
+  font-weight: 700;
+  padding: 8px 12px;
+  border-radius: 6px;
+  outline: none;
+  font-variant-numeric: tabular-nums;
+}
+
+.payment-form input:focus {
+  border-color: #2563eb;
+  box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.15);
+}
+
+.troco-box {
+  background-color: #ecfdf5;
+  border: 1px solid #a7f3d0;
+  padding: 10px 14px;
+  border-radius: 6px;
+  color: #065f46;
+  font-size: 0.85rem;
+  font-weight: 600;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.troco-box b {
+  font-family: var(--font-mono);
+  font-size: 1.2rem;
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+}
+
+/* ==========================================================================
+   SIMULADOR DE PINPAD / TEF
+   ========================================================================== */
+.pinpad-device {
+  background-color: #f8fafc;
+  border: 1px solid #cbd5e1;
+  border-radius: 12px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.pinpad-screen {
+  background-color: #ffffff;
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+  padding: 14px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.pinpad-brand {
+  font-size: 0.65rem;
+  color: #64748b;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+
+.pinpad-msg {
+  font-family: var(--font-mono);
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #0369a1;
+  min-height: 24px;
+}
+
 .pinpad-input {
-  font-size: 1.4rem;
-  letter-spacing: 6px;
-  color: #fff;
-  margin-top: 4px;
+  font-family: var(--font-mono);
+  font-size: 1.3rem;
+  letter-spacing: 4px;
+  color: #0f172a;
+  min-height: 28px;
 }
 
 .pinpad-keypad {
@@ -238,113 +338,241 @@
 }
 
 .pin-key {
-  background-color: #1e293b;
-  border: 1px solid #475569;
-  color: #fff;
+  background-color: #ffffff;
+  border: 1px solid #cbd5e1;
+  color: #0f172a;
   font-family: var(--font-mono);
-  font-size: 1.1rem;
+  font-size: 1.15rem;
   font-weight: 700;
   padding: 12px;
   border-radius: 6px;
   cursor: pointer;
+  transition: all 0.1s;
+  box-shadow: var(--shadow-sm);
 }
 
 .pin-key:hover {
-  background-color: #334155;
+  background-color: #f1f5f9;
+  border-color: #94a3b8;
 }
 
-/* COMPROVANTE TÉRMICO PREVIEW */
-.thermal-receipt-text {
-  background-color: var(--paper-bg);
-  color: var(--paper-text);
-  font-family: var(--font-mono);
-  font-size: 0.85rem;
-  padding: 16px;
-  border-radius: 6px;
-  white-space: pre;
-  line-height: 1.35;
-  border: 1px solid #cbd5e1;
-  max-height: 60vh;
-  overflow-y: auto;
+.pin-key:active {
+  transform: scale(0.97);
 }
 
-/* ABA SANGRIA / SUPRIMENTO */
-.tab-controls {
+/* ==========================================================================
+   MENU DE FUNÇÕES ZANTHUS (F9)
+   ========================================================================== */
+.function-input-row {
   display: flex;
-  gap: 8px;
+  flex-direction: column;
+  gap: 6px;
 }
 
-.tab-btn {
-  flex: 1;
-  background-color: #0f172a;
-  border: 1px solid var(--border-color);
-  color: #94a3b8;
-  padding: 10px;
-  border-radius: 6px;
+.function-input-row label {
+  font-size: 0.72rem;
   font-weight: 700;
-  cursor: pointer;
+  color: #475569;
+  text-transform: uppercase;
 }
 
-.tab-btn.active {
-  background-color: #1e3a8a;
-  color: #fff;
-  border-color: #3b82f6;
-}
-
-.balance-info {
-  background-color: #0f172a;
-  padding: 10px;
-  border-radius: 6px;
-  font-size: 0.9rem;
-  color: var(--text-muted);
-}
-
-.balance-info b {
+.function-input-row input {
+  background-color: #ffffff;
+  border: 1px solid #cbd5e1;
+  color: #0f172a;
   font-family: var(--font-mono);
-  color: var(--accent-green);
-  font-size: 1.1rem;
-}
-
-/* BALANÇA */
-.scale-display {
-  background-color: #000;
-  color: #10b981;
-  font-family: var(--font-mono);
-  font-size: 1.8rem;
-  font-weight: 900;
-  text-align: center;
-  padding: 12px;
+  font-size: 1.15rem;
+  font-weight: 700;
+  padding: 8px 12px;
   border-radius: 6px;
-  border: 2px solid #059669;
+  outline: none;
 }
 
-/* CHEAT SHEET DE FUNÇÕES */
+.function-input-row input:focus {
+  border-color: #2563eb;
+  box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.15);
+}
+
 .functions-cheat-sheet {
-  background-color: #0f172a;
-  padding: 12px;
+  background-color: #f8fafc;
+  border: 1px solid #e2e8f0;
   border-radius: 6px;
-  border: 1px solid var(--border-color);
+  padding: 12px 14px;
   max-height: 220px;
   overflow-y: auto;
 }
 
 .functions-cheat-sheet h4 {
-  font-size: 0.8rem;
-  color: var(--accent-amber);
-  margin-bottom: 6px;
+  font-size: 0.72rem;
+  color: #64748b;
+  font-weight: 700;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+  letter-spacing: 0.5px;
 }
 
 .functions-cheat-sheet ul {
   list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.functions-cheat-sheet li {
   font-size: 0.8rem;
-  line-height: 1.6;
+  color: #334155;
+  display: flex;
+  gap: 8px;
 }
 
 .functions-cheat-sheet li b {
-  color: #fff;
   font-family: var(--font-mono);
-  background-color: #1e293b;
-  padding: 1px 5px;
-  border-radius: 3px;
-  margin-right: 6px;
+  color: #0f172a;
+  min-width: 44px;
+  font-weight: 700;
+}
+
+/* ==========================================================================
+   SANGRIA / SUPRIMENTO (F6)
+   ========================================================================== */
+.tab-controls {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6px;
+  background-color: #f1f5f9;
+  padding: 4px;
+  border-radius: 6px;
+  border: 1px solid #e2e8f0;
+}
+
+.tab-btn {
+  background: transparent;
+  border: none;
+  color: #64748b;
+  padding: 8px 10px;
+  font-weight: 600;
+  font-size: 0.75rem;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.12s;
+}
+
+.tab-btn.active {
+  background-color: #ffffff;
+  color: #0f172a;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  font-weight: 700;
+}
+
+.balance-info {
+  background-color: #f8fafc;
+  border: 1px solid #e2e8f0;
+  padding: 10px 14px;
+  border-radius: 6px;
+  font-size: 0.82rem;
+  color: #475569;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.balance-info b {
+  font-family: var(--font-mono);
+  font-size: 1.1rem;
+  color: #0f172a;
+  font-variant-numeric: tabular-nums;
+}
+
+/* ==========================================================================
+   SIMULADOR DE BALANÇA (F7)
+   ========================================================================== */
+.scale-display {
+  background-color: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 6px;
+  padding: 12px 14px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.82rem;
+  color: #475569;
+}
+
+.scale-display span {
+  font-family: var(--font-mono);
+  font-size: 1.3rem;
+  font-weight: 800;
+  color: #059669;
+  font-variant-numeric: tabular-nums;
+}
+
+/* ==========================================================================
+   VISUALIZADOR TÉRMICO (DANFE / LEITURA X)
+   ========================================================================== */
+.thermal-receipt-text {
+  background-color: #ffffff;
+  color: #0f172a;
+  padding: 16px;
+  border-radius: 6px;
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  line-height: 1.4;
+  white-space: pre-wrap;
+  word-break: break-all;
+  max-height: 60vh;
+  overflow-y: auto;
+  border: 1px solid #cbd5e1;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+/* ==========================================================================
+   BOTÕES PADRÃO
+   ========================================================================== */
+.btn-success {
+  background-color: #059669;
+  color: #ffffff;
+  border: none;
+  padding: 8px 16px;
+  font-weight: 600;
+  font-size: 0.82rem;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.12s;
+}
+
+.btn-success:hover {
+  background-color: #047857;
+}
+
+.btn-danger {
+  background-color: #e11d48;
+  color: #ffffff;
+  border: none;
+  padding: 8px 16px;
+  font-weight: 600;
+  font-size: 0.82rem;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.12s;
+}
+
+.btn-danger:hover {
+  background-color: #be123c;
+}
+
+.btn-secondary {
+  background-color: #f1f5f9;
+  color: #334155;
+  border: 1px solid #cbd5e1;
+  padding: 8px 16px;
+  font-weight: 600;
+  font-size: 0.82rem;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.12s;
+}
+
+.btn-secondary:hover {
+  background-color: #e2e8f0;
+  color: #0f172a;
 }
