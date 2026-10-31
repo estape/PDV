@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Zanthus Zeus Retail - PDV Frente de Loja</title>
+  <link rel="stylesheet" href="css/pdv.css">
+  <link rel="stylesheet" href="css/components.css">
+</head>
+<body>
+  <div id="app" class="pdv-container">
+    <!-- BARRA SUPERIOR: DADOS DA LOJA, TERMINAL E STATUS FISCAL -->
+    <header class="pdv-header">
+      <div class="header-brand">
+        <div class="brand-logo">ZANTHUS</div>
+        <div class="brand-title">ZEUS RETAIL <span>PDV 4.0</span></div>
+      </div>
+
+      <div class="header-terminal-info">
+        <div class="info-chip">LOJA: <b id="lblLoja">001</b></div>
+        <div class="info-chip">CAIXA: <b id="lblPdv">001</b></div>
+        <div class="info-chip">OPERADOR: <b id="lblOperador">101 - MARIA SILVA</b></div>
+        <div class="info-chip" id="lblClock">00:00:00</div>
+      </div>
+
+      <div class="header-status-pills">
+        <span id="pillEstado" class="pill pill-livre">LIVRE</span>
+        <span id="pillFiscal" class="pill pill-online">NFC-e ONLINE</span>
+        <span id="pillManager" class="pill pill-online">MANAGER OK</span>
+        <span id="pillGaveta" class="pill pill-gaveta-fechada">GAVETA FECHADA</span>
+      </div>
+    </header>
+
+    <!-- ÁREA PRINCIPAL -->
+    <main class="pdv-main">
+      <!-- COLUNA DA ESQUERDA: FITA DE CUPOM FISCAL ELETRÔNICO -->
+      <section class="receipt-tape-section">
+        <div class="receipt-tape-header">
+          <div class="receipt-title">EXTRATO ELETRÔNICO (NFC-e)</div>
+          <div class="receipt-number">CUPOM Nº <span id="lblCupom">000001</span></div>
+        </div>
+
+        <div class="receipt-paper" id="receiptPaper">
+          <div class="receipt-paper-content">
+            <div class="receipt-store-header">
+              <h3 id="lblStoreName">SUPERMERCADO ZEUS RETAIL LTDA</h3>
+              <p>CNPJ: <span id="lblStoreCnpj">12.345.678/0001-90</span></p>
+              <p>RUA DO COMÉRCIO, 1000 - SÃO PAULO/SP</p>
+              <div class="receipt-dashed"></div>
+              <div class="receipt-columns-header">
+                <span>ITEM</span>
+                <span>CÓDIGO/DESCRIÇÃO</span>
+                <span>QTD x VL.UN</span>
+                <span>TOTAL</span>
+              </div>
+              <div class="receipt-dashed"></div>
+            </div>
+
+            <!-- ITENS DA VENDA -->
+            <div id="receiptItemsList" class="receipt-items-list">
+              <div class="empty-receipt-msg">CAIXA LIVRE<br>AGUARDANDO PRÓXIMO CLIENTE</div>
+            </div>
+
+            <!-- TOTAIS NO CUPOM -->
+            <div class="receipt-totals-section" id="receiptTotals">
+              <div class="receipt-dashed"></div>
+              <div class="receipt-total-row">
+                <span>TOTAL BRUTO:</span>
+                <span id="lblRcptBruto">R$ 0,00</span>
+              </div>
+              <div class="receipt-total-row text-discount" id="rowRcptDesconto" style="display:none;">
+                <span>DESCONTOS:</span>
+                <span id="lblRcptDesconto">- R$ 0,00</span>
+              </div>
+              <div class="receipt-total-row total-highlight">
+                <span>TOTAL A PAGAR:</span>
+                <span id="lblRcptLiquido">R$ 0,00</span>
+              </div>
+              <div id="receiptPaymentsList" class="receipt-payments-list"></div>
+              <div class="receipt-total-row" id="rowRcptTroco" style="display:none;">
+                <span>TROCO:</span>
+                <span id="lblRcptTroco">R$ 0,00</span>
+              </div>
+              <div class="receipt-dashed"></div>
+              <div class="receipt-fiscal-footer" id="receiptFiscalFooter" style="display:none;">
+                <p>TRIBUTOS APROX. (LEI 12.741): <span id="lblRcptImpostos">R$ 0,00</span></p>
+                <p class="chave-fiscal" id="lblRcptChave"></p>
+                <p>EMITIDO EM AMBIENTE HOMOLOGADO</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- COLUNA DA DIREITA: PAINEL OPERACIONAL E GRANDES TOTAIS -->
+      <section class="operator-panel-section">
+        <!-- CARD DO ITEM ATUAL -->
+        <div class="current-item-card">
+          <div class="card-badge">ITEM ATUAL REGISTRADO</div>
+          <div class="current-item-desc" id="lblCurrentItemDesc">CAIXA LIVRE</div>
+          <div class="current-item-details">
+            <div class="detail-box">
+              <span class="detail-label">CÓDIGO DE BARRAS</span>
+              <span class="detail-val" id="lblCurrentItemCode">---</span>
+            </div>
+            <div class="detail-box">
+              <span class="detail-label">QUANTIDADE</span>
+              <span class="detail-val" id="lblCurrentItemQty">---</span>
+            </div>
+            <div class="detail-box">
+              <span class="detail-label">VALOR UNITÁRIO</span>
+              <span class="detail-val" id="lblCurrentItemPrice">R$ 0,00</span>
+            </div>
+            <div class="detail-box highlight">
+              <span class="detail-label">TOTAL DO ITEM</span>
+              <span class="detail-val" id="lblCurrentItemTotal">R$ 0,00</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- CARD DO GRANDE SUBTOTAL -->
+        <div class="subtotal-card">
+          <div class="subtotal-label">SUBTOTAL (R$)</div>
+          <div class="subtotal-amount" id="lblSubtotalLarge">0,00</div>
+          <div class="subtotal-footer-info">
+            <span>ITENS NA COMPRA: <b id="lblQtdItensTotal">0</b></span>
+            <span>SALDO RESTANTE: <b id="lblSaldoRestante">R$ 0,00</b></span>
+          </div>
+        </div>
+
+        <!-- VISOR DE MENSAGENS ZANTHUS -->
+        <div class="terminal-message-visor" id="visorMensagem">
+          <span class="visor-indicator">▶</span>
+          <span class="visor-text" id="lblVisorTexto">PDV INICIALIZADO. PRONTO PARA VENDA.</span>
+        </div>
+
+        <!-- BARRA DE ENTRADA DO OPERADOR (INPUT DE ALTA VELOCIDADE) -->
+        <div class="operator-input-box">
+          <label for="txtBarcode">ENTRADA DO OPERADOR (CÓDIGO / QTD * CÓDIGO / FUNÇÃO):</label>
+          <div class="input-wrapper">
+            <span class="input-prefix">⌨</span>
+            <input type="text" id="txtBarcode" autocomplete="off" autofocus placeholder="Digite o código ou passe no leitor..." />
+            <button id="btnEnter" class="btn-primary">ENTRA ↵</button>
+          </div>
+        </div>
+
+        <!-- TECLADO DE ATALHOS ZANTHUS (RODAPÉ RÁPIDO) -->
+        <div class="keyboard-shortcuts-grid">
+          <button class="key-btn" data-key="F1"><span class="k-key">F1</span> Ajuda</button>
+          <button class="key-btn key-action" data-key="F2"><span class="k-key">F2</span> Subtotal</button>
+          <button class="key-btn key-danger" data-key="F3"><span class="k-key">F3</span> Canc Item</button>
+          <button class="key-btn key-danger" data-key="F4"><span class="k-key">F4</span> Canc Cupom</button>
+          <button class="key-btn key-success" data-key="F5"><span class="k-key">F5</span> Pagamento</button>
+          <button class="key-btn" data-key="F6"><span class="k-key">F6</span> Gaveta/Sangria</button>
+          <button class="key-btn" data-key="F7"><span class="k-key">F7</span> Balança</button>
+          <button class="key-btn" data-key="F8"><span class="k-key">F8</span> Consulta</button>
+          <button class="key-btn key-highlight" data-key="F9"><span class="k-key">F9</span> Funções</button>
+          <button class="key-btn" data-key="F10"><span class="k-key">F10</span> Fechamento</button>
+        </div>
+      </section>
+    </main>
+
+    <!-- MODAL 1: FORMAS DE PAGAMENTO (F5) -->
+    <div id="modalPagamento" class="modal-overlay" style="display:none;">
+      <div class="modal-card">
+        <div class="modal-header">
+          <h2>FINALIZADORAS DE PAGAMENTO (F5)</h2>
+          <button class="modal-close" onclick="fecharModais()">×</button>
+        </div>
+        <div class="modal-body">
+          <div class="payment-amount-due">
+            VALOR A PAGAR: <span id="lblModalTotalPagar">R$ 0,00</span>
+          </div>
+
+          <div class="payment-methods-grid">
+            <button class="pay-method-btn active" data-fin="1">
+              <span class="pay-icon">💵</span>
+              <span class="pay-name">[1] DINHEIRO</span>
+            </button>
+            <button class="pay-method-btn" data-fin="3">
+              <span class="pay-icon">💳</span>
+              <span class="pay-name">[3] TEF DÉBITO</span>
+            </button>
+            <button class="pay-method-btn" data-fin="4">
+              <span class="pay-icon">💳</span>
+              <span class="pay-name">[4] TEF CRÉDITO</span>
+            </button>
+            <button class="pay-method-btn" data-fin="7">
+              <span class="pay-icon">📱</span>
+              <span class="pay-name">[7] PIX DINÂMICO</span>
+            </button>
+          </div>
+
+          <div class="payment-form">
+            <label for="txtValorPago">VALOR RECEBIDO (R$):</label>
+            <input type="number" step="0.01" id="txtValorPago" />
+            <div id="boxTrocoCalculado" class="troco-box" style="display:none;">
+              TROCO A DEVOLVER: <b id="lblTrocoCalculado">R$ 0,00</b>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button class="btn-secondary" onclick="fecharModais()">ESC - Cancelar</button>
+          <button class="btn-success" id="btnConfirmarPagamento">CONFIRMAR PAGAMENTO [ENTER]</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- MODAL 2: SIMULAÇÃO PINPAD / TEF -->
+    <div id="modalTef" class="modal-overlay" style="display:none;">
+      <div class="modal-card modal-tef">
+        <div class="modal-header">
+          <h2>TRANSFERÊNCIA ELETRÔNICA DE FUNDOS (TEF)</h2>
+        </div>
+        <div class="modal-body">
+          <div class="pinpad-device">
+            <div class="pinpad-screen">
+              <div class="pinpad-brand">SITEF ZANTHUS HOMOLOGADO</div>
+              <div class="pinpad-msg" id="lblTefMsg">INSIRA OU APROXIME O CARTÃO</div>
+              <div class="pinpad-input" id="lblTefInput">****</div>
+            </div>
+            <div class="pinpad-keypad">
+              <button class="pin-key" onclick="tefKey('1')">1</button>
+              <button class="pin-key" onclick="tefKey('2')">2</button>
+              <button class="pin-key" onclick="tefKey('3')">3</button>
+              <button class="pin-key" onclick="tefKey('4')">4</button>
+              <button class="pin-key" onclick="tefKey('5')">5</button>
+              <button class="pin-key" onclick="tefKey('6')">6</button>
+              <button class="pin-key" onclick="tefKey('7')">7</button>
+              <button class="pin-key" onclick="tefKey('8')">8</button>
+              <button class="pin-key" onclick="tefKey('9')">9</button>
+              <button class="pin-key btn-danger" onclick="tefCancela()">ANULA</button>
+              <button class="pin-key" onclick="tefKey('0')">0</button>
+              <button class="pin-key btn-success" onclick="tefConfirma()">ENTRA</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- MODAL 3: MENU DE FUNÇÕES ZANTHUS (F9) -->
+    <div id="modalFuncoes" class="modal-overlay" style="display:none;">
+      <div class="modal-card">
+        <div class="modal-header">
+          <h2>CÓDIGOS DE FUNÇÕES ZANTHUS ZEUS (M008)</h2>
+          <button class="modal-close" onclick="fecharModais()">×</button>
+        </div>
+        <div class="modal-body">
+          <div class="function-input-row">
+            <label for="txtNumFuncao">DIGITE O NÚMERO DA FUNÇÃO:</label>
+            <input type="number" id="txtNumFuncao" placeholder="Ex: 201, 158, 9999..." autofocus />
+            <button class="btn-primary" id="btnExecutarFuncao">EXECUTAR [ENTER]</button>
+          </div>
+
+          <div class="functions-cheat-sheet">
+            <h4>FUNÇÕES MAIS UTILIZADAS:</h4>
+            <ul>
+              <li><b>151</b> - Abertura de Caixa (Supervisor)</li>
+              <li><b>154</b> - Login / Entrada de Operador</li>
+              <li><b>157</b> - Suprimento de Caixa (Fundo de Troco)</li>
+              <li><b>158</b> - Sangria de Caixa (Retirada)</li>
+              <li><b>159</b> - Fechamento de Caixa com Conferência</li>
+              <li><b>201</b> - Leitura X Fiscal/Gerencial</li>
+              <li><b>143</b> - Travar / Bloquear Operação</li>
+              <li><b>3701</b> - Cancela Último Item</li>
+              <li><b>3702</b> - Cancela Item por Número Ordinal</li>
+              <li><b>3703</b> - Cancela Cupom Aberto</li>
+              <li><b>3713</b> - Desconto em R$ no Subtotal</li>
+              <li><b>3714</b> - Desconto em % no Subtotal</li>
+              <li><b>3511</b> - Ativa Contingência Offline (NFC-e)</li>
+              <li><b>3512</b> - Desativa Contingência Offline</li>
+              <li><b>9999</b> - Abertura Manual da Gaveta</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- MODAL 4: SANGRIA / SUPRIMENTO (F6) -->
+    <div id="modalGaveta" class="modal-overlay" style="display:none;">
+      <div class="modal-card">
+        <div class="modal-header">
+          <h2>MOVIMENTAÇÃO DE GAVETA (SANGRIA / SUPRIMENTO)</h2>
+          <button class="modal-close" onclick="fecharModais()">×</button>
+        </div>
+        <div class="modal-body">
+          <div class="tab-controls">
+            <button id="tabSangria" class="tab-btn active" onclick="switchGavetaTab('sangria')">SANGRIA (RETIRADA - 158)</button>
+            <button id="tabSuprimento" class="tab-btn" onclick="switchGavetaTab('suprimento')">SUPRIMENTO (FUNDO DE TROCO - 157)</button>
+          </div>
+          <div class="form-group">
+            <label for="txtGavetaValor">VALOR DA OPERAÇÃO (R$):</label>
+            <input type="number" step="0.01" id="txtGavetaValor" placeholder="0,00" />
+          </div>
+          <div class="form-group">
+            <label for="txtGavetaMotivo">HISTÓRICO / MOTIVO:</label>
+            <input type="text" id="txtGavetaMotivo" placeholder="Ex: Recolhimento de excesso / Suprimento matutino" />
+          </div>
+          <div class="balance-info">
+            SALDO ATUAL EM GAVETA: <b id="lblSaldoGaveta">R$ 0,00</b>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button class="btn-secondary" onclick="fecharModais()">Cancelar</button>
+          <button class="btn-success" id="btnConfirmarGaveta">CONFIRMAR E ABRIR GAVETA</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- MODAL 5: BALANÇA DE CHECKOUT (F7) -->
+    <div id="modalBalanca" class="modal-overlay" style="display:none;">
+      <div class="modal-card">
+        <div class="modal-header">
+          <h2>SIMULADOR DE BALANÇA DE CHECKOUT (F7)</h2>
+          <button class="modal-close" onclick="fecharModais()">×</button>
+        </div>
+        <div class="modal-body">
+          <p>Selecione um produto pesável e informe o peso indicado no prato da balança:</p>
+          <div class="form-group">
+            <label for="selProdutoBalanca">PRODUTO PESÁVEL:</label>
+            <select id="selProdutoBalanca">
+              <option value="50">50 - QUEIJO PRATO KG (R$ 45,00/Kg)</option>
+              <option value="51">51 - BANANA NANICA KG (R$ 6,99/Kg)</option>
+              <option value="52">52 - ALCATRA BOVINA KG (R$ 39,90/Kg)</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="txtPesoKg">PESO LÍQUIDO NO PRATO (KG):</label>
+            <input type="number" step="0.001" id="txtPesoKg" value="0.500" />
+          </div>
+          <div class="scale-display">
+            PESO ESTABILIZADO: <span id="lblScaleDisplay">0.500 KG</span>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button class="btn-secondary" onclick="fecharModais()">Cancelar</button>
+          <button class="btn-success" id="btnConfirmarBalanca">CAPTURAR PESO E REGISTRAR ITEM</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- MODAL 6: VISUALIZADOR DE IMPRESSÃO (DANFE / LEITURA X) -->
+    <div id="modalImpressao" class="modal-overlay" style="display:none;">
+      <div class="modal-card modal-printer">
+        <div class="modal-header">
+          <h2 id="lblPrinterDocTitle">COMPROVANTE TÉRMICO DE 40 COLUNAS</h2>
+          <button class="modal-close" onclick="fecharModais()">×</button>
+        </div>
+        <div class="modal-body">
+          <pre id="printerText" class="thermal-receipt-text"></pre>
+        </div>
+        <div class="modal-footer">
+          <button class="btn-primary" onclick="fecharModais()">FECHAR [ESC]</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- MODAL 7: LOGIN DE OPERADOR / SUPERVISOR -->
+    <div id="modalLogin" class="modal-overlay" style="display:none;">
+      <div class="modal-card modal-small">
+        <div class="modal-header">
+          <h2>AUTENTICAÇÃO DE OPERADOR / FISCAL</h2>
+          <button class="modal-close" onclick="fecharModais()">×</button>
+        </div>
+        <div class="modal-body">
+          <div class="form-group">
+            <label for="txtLoginCodigo">CÓDIGO:</label>
+            <input type="number" id="txtLoginCodigo" placeholder="101 (Op) ou 201 (Sup)" />
+          </div>
+          <div class="form-group">
+            <label for="txtLoginSenha">SENHA:</label>
+            <input type="password" id="txtLoginSenha" placeholder="Senha..." />
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button class="btn-secondary" onclick="fecharModais()">Cancelar</button>
+          <button class="btn-success" id="btnConfirmarLogin">ENTRAR [ENTER]</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- SCRIPTS -->
+  <script src="js/pdv_ipc.js"></script>
+  <script src="js/pdv_app.js"></script>
+</body>
+</html>

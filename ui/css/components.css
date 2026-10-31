@@ -1,0 +1,350 @@
+/* COMPONENTES E MODAIS DO PDV */
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.75);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  animation: fadeIn 0.15s ease-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.modal-card {
+  background-color: #1e293b;
+  border: 2px solid var(--accent-blue);
+  border-radius: 10px;
+  width: 90%;
+  max-width: 620px;
+  max-height: 90vh;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+  overflow: hidden;
+}
+
+.modal-small {
+  max-width: 440px;
+}
+
+.modal-printer {
+  max-width: 520px;
+}
+
+.modal-header {
+  background-color: #0f172a;
+  padding: 14px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.modal-header h2 {
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: #fff;
+  letter-spacing: 0.5px;
+}
+
+.modal-close {
+  background: none;
+  border: none;
+  color: #94a3b8;
+  font-size: 1.6rem;
+  cursor: pointer;
+  line-height: 1;
+}
+
+.modal-close:hover {
+  color: #fff;
+}
+
+.modal-body {
+  padding: 20px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.modal-footer {
+  background-color: #0f172a;
+  padding: 14px 20px;
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  border-top: 1px solid var(--border-color);
+}
+
+/* FORMULÁRIOS */
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.form-group label {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: #cbd5e1;
+}
+
+.form-group input,
+.form-group select {
+  background-color: #0f172a;
+  border: 1px solid var(--border-color);
+  color: #fff;
+  font-family: var(--font-mono);
+  font-size: 1.1rem;
+  padding: 8px 12px;
+  border-radius: 6px;
+  outline: none;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+  border-color: var(--accent-blue);
+}
+
+/* FINALIZADORAS DE PAGAMENTO */
+.payment-amount-due {
+  background-color: #0f172a;
+  padding: 12px;
+  border-radius: 6px;
+  text-align: center;
+  font-size: 1.1rem;
+  font-weight: 700;
+  border: 1px solid var(--border-color);
+}
+
+.payment-amount-due span {
+  font-family: var(--font-mono);
+  color: var(--accent-green);
+  font-size: 1.5rem;
+  font-weight: 900;
+  margin-left: 8px;
+}
+
+.payment-methods-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+}
+
+.pay-method-btn {
+  background-color: #0f172a;
+  border: 1px solid var(--border-color);
+  color: #fff;
+  padding: 12px;
+  border-radius: 8px;
+  font-weight: 700;
+  font-size: 0.95rem;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.pay-method-btn.active,
+.pay-method-btn:hover {
+  background-color: #1e3a8a;
+  border-color: #3b82f6;
+}
+
+.pay-icon {
+  font-size: 1.4rem;
+}
+
+.troco-box {
+  background-color: #064e3b;
+  border: 1px solid #10b981;
+  color: #a7f3d0;
+  padding: 10px 14px;
+  border-radius: 6px;
+  font-size: 1rem;
+  margin-top: 8px;
+  text-align: center;
+}
+
+.troco-box b {
+  font-family: var(--font-mono);
+  font-size: 1.3rem;
+  color: #fff;
+}
+
+/* PINPAD TEF */
+.pinpad-device {
+  background-color: #0f172a;
+  border: 3px solid #334155;
+  border-radius: 12px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  max-width: 340px;
+  margin: 0 auto;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.7);
+}
+
+.pinpad-screen {
+  background-color: #022c22;
+  border: 2px solid #065f46;
+  border-radius: 6px;
+  padding: 12px 10px;
+  text-align: center;
+  font-family: var(--font-mono);
+  color: #34d399;
+}
+
+.pinpad-brand {
+  font-size: 0.65rem;
+  color: #059669;
+  letter-spacing: 1px;
+  margin-bottom: 6px;
+}
+
+.pinpad-msg {
+  font-size: 0.9rem;
+  font-weight: 800;
+  min-height: 2.4rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.pinpad-input {
+  font-size: 1.4rem;
+  letter-spacing: 6px;
+  color: #fff;
+  margin-top: 4px;
+}
+
+.pinpad-keypad {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+}
+
+.pin-key {
+  background-color: #1e293b;
+  border: 1px solid #475569;
+  color: #fff;
+  font-family: var(--font-mono);
+  font-size: 1.1rem;
+  font-weight: 700;
+  padding: 12px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.pin-key:hover {
+  background-color: #334155;
+}
+
+/* COMPROVANTE TÉRMICO PREVIEW */
+.thermal-receipt-text {
+  background-color: var(--paper-bg);
+  color: var(--paper-text);
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  padding: 16px;
+  border-radius: 6px;
+  white-space: pre;
+  line-height: 1.35;
+  border: 1px solid #cbd5e1;
+  max-height: 60vh;
+  overflow-y: auto;
+}
+
+/* ABA SANGRIA / SUPRIMENTO */
+.tab-controls {
+  display: flex;
+  gap: 8px;
+}
+
+.tab-btn {
+  flex: 1;
+  background-color: #0f172a;
+  border: 1px solid var(--border-color);
+  color: #94a3b8;
+  padding: 10px;
+  border-radius: 6px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.tab-btn.active {
+  background-color: #1e3a8a;
+  color: #fff;
+  border-color: #3b82f6;
+}
+
+.balance-info {
+  background-color: #0f172a;
+  padding: 10px;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  color: var(--text-muted);
+}
+
+.balance-info b {
+  font-family: var(--font-mono);
+  color: var(--accent-green);
+  font-size: 1.1rem;
+}
+
+/* BALANÇA */
+.scale-display {
+  background-color: #000;
+  color: #10b981;
+  font-family: var(--font-mono);
+  font-size: 1.8rem;
+  font-weight: 900;
+  text-align: center;
+  padding: 12px;
+  border-radius: 6px;
+  border: 2px solid #059669;
+}
+
+/* CHEAT SHEET DE FUNÇÕES */
+.functions-cheat-sheet {
+  background-color: #0f172a;
+  padding: 12px;
+  border-radius: 6px;
+  border: 1px solid var(--border-color);
+  max-height: 220px;
+  overflow-y: auto;
+}
+
+.functions-cheat-sheet h4 {
+  font-size: 0.8rem;
+  color: var(--accent-amber);
+  margin-bottom: 6px;
+}
+
+.functions-cheat-sheet ul {
+  list-style: none;
+  font-size: 0.8rem;
+  line-height: 1.6;
+}
+
+.functions-cheat-sheet li b {
+  color: #fff;
+  font-family: var(--font-mono);
+  background-color: #1e293b;
+  padding: 1px 5px;
+  border-radius: 3px;
+  margin-right: 6px;
+}
